@@ -10,6 +10,7 @@ const ALLOWED_IDS = [388956764] // ЗАМЕНИ НА СВОЙ ID
 onMounted(() => {
 	tg?.ready()
 	tg?.expand()
+	console.log(tg)
 
 	// Получаем данные пользователя из Telegram
 	const user = tg?.initDataUnsafe?.user
@@ -65,10 +66,5 @@ onMounted(() => {
 		<p class="text-sm opacity-60 mt-2 text-center">
 			Это приложение только для старост группы ПР-25.
 		</p>
-		<p>{{ tg }}</p>
-		<p>{{ user.id }}</p>
-		<p>{{ user.first_name }}</p>
-		<p>{{ user.username }}</p>
-		<p>{{ ALLOWED_IDS[0] }}</p>
 	</div>
 </template>
