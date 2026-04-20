@@ -65,5 +65,8 @@ onMounted(() => {
 		<p class="text-sm opacity-60 mt-2 text-center">
 			Это приложение только для старост группы ПР-25.
 		</p>
+		<p>{{ tg }}</p>
+		<p>{{ user }}</p>
+		<p>{{ ALLOWED_IDS[0] }}</p>
 	</div>
 </template>
