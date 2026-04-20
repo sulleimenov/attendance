@@ -1,14 +1,8 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-const tg = window.Telegram.WebApp
+const tg = window.Telegram?.WebApp
 const isAuthorized = ref(false)
-
-if (user) {
-	console.log(user.id) // ID пользователя
-	console.log(user.first_name)
-	console.log(user.username)
-}
 
 // Твой список разрешенных ID
 const ALLOWED_IDS = [388956764] // ЗАМЕНИ НА СВОЙ ID
@@ -18,7 +12,7 @@ onMounted(() => {
 	tg?.expand()
 
 	// Получаем данные пользователя из Telegram
-	const user = tg.initDataUnsafe.user
+	const user = tg?.initDataUnsafe?.user
 
 	if (user && ALLOWED_IDS.includes(user.id)) {
 		// Если ты — староста, пускаем внутрь
@@ -72,7 +66,9 @@ onMounted(() => {
 			Это приложение только для старост группы ПР-25.
 		</p>
 		<p>{{ tg }}</p>
-		<p>{{ user }}</p>
+		<p>{{ user.id }}</p>
+		<p>{{ user.first_name }}</p>
+		<p>{{ user.username }}</p>
 		<p>{{ ALLOWED_IDS[0] }}</p>
 	</div>
 </template>
