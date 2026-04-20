@@ -260,14 +260,11 @@ const sendReport = async () => {
 		await axios.post(API_URL, report)
 
 		tg?.HapticFeedback.notificationOccurred('success')
-		tg?.showPopup(
-			{
-				title: 'Успешно!',
-				message: `Отчет за ${lessonNumber.value} пару принят.`,
-				buttons: [{ type: 'close', text: 'Понятно' }],
-			},
-			() => tg.close(),
-		)
+		tg?.showPopup({
+			title: 'Успешно!',
+			message: `Отчет за ${lessonNumber.value} пару принят.`,
+			buttons: [{ type: 'close', text: 'Понятно' }],
+		})
 	} catch (e) {
 		tg?.showAlert('Сбой сети. Попробуйте еще раз.')
 	} finally {

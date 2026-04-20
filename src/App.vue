@@ -5,30 +5,21 @@ const tg = window.Telegram?.WebApp
 const isAuthorized = ref(false)
 
 // Твой список разрешенных ID
-const ALLOWED_IDS = [388956764] // ЗАМЕНИ НА СВОЙ ID
+const ALLOWED_IDS = [388956764]
 
 onMounted(() => {
 	tg?.ready()
 	tg?.expand()
 	console.log(tg)
 
-	// Получаем данные пользователя из Telegram
 	const user = tg?.initDataUnsafe?.user
 
 	if (user && ALLOWED_IDS.includes(user.id)) {
-		// Если ты — староста, пускаем внутрь
 		isAuthorized.value = true
 	} else {
-		// Если кто-то другой — оставляем isAuthorized = false
-		// и сработает блок v-else в шаблоне
 		console.log('Доступ запрещен для:', user?.id)
 	}
 })
-console.log('Telegram:', window.Telegram)
-console.log('WebApp:', tg)
-console.log('initData:', tg?.initData)
-console.log('initDataUnsafe:', tg?.initDataUnsafe)
-console.log('user:', tg?.initDataUnsafe?.user)
 </script>
 
 <template>
