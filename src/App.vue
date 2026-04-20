@@ -54,7 +54,7 @@ onMounted(() => {
 	>
 		<div class="text-6xl mb-4">🚫</div>
 		<h1 class="text-xl font-black text-white">Доступ ограничен</h1>
-		<p class="text-sm opacity-60 mt-2">
+		<p class="text-sm opacity-60 mt-2 text-center">
 			Это приложение только для старост группы ПР-25.
 		</p>
 	</div>
