@@ -1,9 +1,17 @@
 <template>
-	<div class="p-4 bg-[#f4f7f9] min-h-screen dark:bg-[#0f172a]">
-		<h1 class="text-2xl font-black mb-6 text-slate-800 dark:text-white">
-			Журнал за месяц
-		</h1>
+	<header
+		class="sticky top-0 z-30 backdrop-blur-md bg-white/70 dark:bg-slate-900/70 border-b border-slate-200/50 dark:border-slate-700/50 p-5 px-6"
+	>
+		<div class="max-w-md mx-auto flex justify-between items-center flex-col">
+			<div
+				class="text-2xl font-black tracking-tight bg-gradient-to-r from-blue-600 to-indigo-500 bg-clip-text text-transparent"
+			>
+				Журнал за месяц
+			</div>
+		</div>
+	</header>
 
+	<main class="mx-auto p-6 space-y-8">
 		<div
 			class="overflow-x-auto bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-slate-200 dark:border-slate-700"
 		>
@@ -57,7 +65,7 @@
 				</tbody>
 			</table>
 		</div>
-	</div>
+	</main>
 </template>
 
 <script setup>
