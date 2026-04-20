@@ -3,16 +3,24 @@ import { ref, onMounted } from 'vue'
 
 const tg = window.Telegram?.WebApp
 const isAuthorized = ref(false)
-const ALLOWED_IDS = [388956764] // Список ID старост
+
+// Твой список разрешенных ID
+const ALLOWED_IDS = [388956764] // ЗАМЕНИ НА СВОЙ ID
 
 onMounted(() => {
+	tg?.ready()
+	tg?.expand()
+
+	// Получаем данные пользователя из Telegram
 	const user = tg?.initDataUnsafe?.user
 
 	if (user && ALLOWED_IDS.includes(user.id)) {
+		// Если ты — староста, пускаем внутрь
 		isAuthorized.value = true
 	} else {
-		// Если не авторизован, можно закрыть приложение или показать заглушку
-		console.warn('Доступ запрещен для ID:', user?.id)
+		// Если кто-то другой — оставляем isAuthorized = false
+		// и сработает блок v-else в шаблоне
+		console.log('Доступ запрещен для:', user?.id)
 	}
 })
 </script>
