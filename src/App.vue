@@ -23,9 +23,12 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="min-h-screen bg-[#f4f7f9] dark:bg-[#0f172a]" v-if="isAuthorized">
+	<div
+		class="min-h-screen text-white bg-[#f4f7f9] dark:bg-[#0f172a]"
+		v-if="isAuthorized"
+	>
 		<nav
-			class="bg-white/80 text-white dark:bg-slate-900/80 backdrop-blur-lg border-t dark:border-slate-800 p-4 flex justify-around z-50"
+			class="bg-white/80 dark:bg-slate-900/80 backdrop-blur-lg border-t dark:border-slate-800 p-4 flex justify-around z-50"
 		>
 			<router-link
 				to="/"
