@@ -5,7 +5,7 @@ const tg = window.Telegram?.WebApp
 const isAuthorized = ref(false)
 
 // Твой список разрешенных ID
-const ALLOWED_IDS = [388956764]
+const ALLOWED_IDS = [388956764, 7876069353]
 
 onMounted(() => {
 	tg?.ready()

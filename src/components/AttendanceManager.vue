@@ -168,17 +168,46 @@ import { students } from '../data/students.js'
 
 const tg = window.Telegram?.WebApp
 const API_URL = 'https://69e5f9a8ce4e908a155eba75.mockapi.io/api/v1/attendance'
+const BOT_TOKEN = '8698316257:AAEM6E0RXaAO5JV_2mldzwISOkCVhHFiZzU'
+const MY_CHAT_ID = '388956764' // Кому придет сообщение
 
 const lessonNumber = ref(1)
 const loading = ref(false)
 const absentIds = ref([])
-const history = ref([]) // Здесь будем хранить все отчеты за сегодня
+const history = ref([])
 
 const currentDate = new Date().toLocaleDateString('ru-RU', {
 	day: 'numeric',
 	month: 'long',
 	weekday: 'short',
 })
+
+const sendTelegramNotification = async (currentLesson, absents) => {
+	// Находим имена студентов по их ID
+	const absentNames = students
+		.filter((s) => absents.includes(s.id))
+		.map((s) => `🔴 ${s.name}`)
+		.join('\n')
+
+	const text = `
+<b>🔔 Новый отчет о посещаемости</b>
+  
+<b>Пара:</b> ${lesson}
+<b>Дата:</b> ${new Date().toLocaleDateString('ru-RU')}
+<b>Отсутствуют:</b>
+${absentNames || '✅ Все присутствуют'}
+  `.trim()
+
+	try {
+		await axios.post(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+			chat_id: MY_CHAT_ID,
+			text: text,
+			parse_mode: 'HTML',
+		})
+	} catch (e) {
+		console.error('Ошибка отправки уведомления в бот', e)
+	}
+}
 
 // Получаем список номеров пар, которые уже были отмечены сегодня
 const completedLessons = computed(() => {
@@ -253,17 +282,20 @@ const sendReport = async () => {
 	try {
 		const report = {
 			lesson: lessonNumber.value,
-			absent_list: absentIds.value,
+			absent_list: [...absentIds.value],
 			date: new Date().toISOString().split('T')[0],
 		}
 
 		await axios.post(API_URL, report)
+		await sendTelegramNotification(lessonNumber.value, absentIds.value)
+
+		history.value.push(report)
 
 		tg?.HapticFeedback.notificationOccurred('success')
 		tg?.showPopup({
 			title: 'Успешно!',
 			message: `Отчет за ${lessonNumber.value} пару принят.`,
-			buttons: [{ type: 'close', text: 'Понятно' }],
+			buttons: [{ type: 'close', text: 'Ok' }],
 		})
 	} catch (e) {
 		tg?.showAlert('Сбой сети. Попробуйте еще раз.')
